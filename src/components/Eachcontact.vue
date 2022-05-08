@@ -12,7 +12,7 @@ export default {
   name: 'HomeView',
   props: ['contact'],
   components: { },
-  setup() {
+  setup(props) {
     // variables
     const store = useStore()
 
@@ -20,7 +20,7 @@ export default {
     // functions
 
 
-    
+    console.log(props.contact)
 
     return {  }
   }
