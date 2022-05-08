@@ -7,6 +7,7 @@
             :key="contact.index"
             :contact="contact"
           />
+          {{ contacts }}
         </div>
     </div>
 </template>
