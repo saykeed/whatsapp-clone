@@ -1,20 +1,18 @@
 <template>
-    <div class="eachcontact">
+    <router-link class="eachcontact" :to="`/chatpage/${JSON.stringify(contact)}`">
         <img src="https://cdn.pixabay.com/photo/2013/07/13/12/07/avatar-159236__340.png" alt=""/>
         <div class="info">
             <h3>{{contact.name[0]}}</h3>
             <p>{{ contact.tel[0]}}</p>
         </div>
-    </div>
+    </router-link>
     <!-- 
             name: {{contact.name[0]}}
-        <p> tel: {{ contact.tel}}</p>
+        <p> tel: {{ contact.tel[0]}}</p>
      -->
 </template>
 
 <script>
-import {useStore} from 'vuex'
-import {computed} from 'vue'
 
 export default {
   name: 'HomeView',
@@ -22,13 +20,10 @@ export default {
   components: { },
   setup(props) {
     // variables
-    const store = useStore()
 
 
     // functions
-
-
-    console.log(props.contact)
+    
 
     return {  }
   }
@@ -38,12 +33,19 @@ export default {
 <style lang="scss">
 @import "@/assets/scss/variable.scss";
 
-    div.eachcontact{
+    a.eachcontact{
         height: 80px;
         display: flex;
         align-items: center;
         justify-content: space-between;
         padding: 0.5rem;
+        cursor: pointer;
+        text-decoration: none;
+        -webkit-tap-highlight-color: $fadeBlack;
+
+        &:active{
+            background: $fadeBlack;
+        }
 
         img{
             width: 50px;
