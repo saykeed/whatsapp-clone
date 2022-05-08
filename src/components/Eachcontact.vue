@@ -1,6 +1,6 @@
 <template>
     <div class="eachcontact">
-        {{contact.name}}
+        name: {{contact.name}}
     </div>
 </template>
 
@@ -20,7 +20,7 @@ export default {
     // functions
 
 
-    console.log(props.contact)
+    console.log(props.contact.name)
 
     return {  }
   }
