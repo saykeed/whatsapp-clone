@@ -20,7 +20,7 @@ export default {
     // functions
 
 
-    console.log(props.contact.name)
+    console.log(props.contact)
 
     return {  }
   }
