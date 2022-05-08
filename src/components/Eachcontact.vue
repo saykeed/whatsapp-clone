@@ -1,6 +1,7 @@
 <template>
     <div class="eachcontact">
-        name: {{contact.name}}
+        name: {{contact.name[0]}}
+        <p> tel: {{ contact.tel}}</p>
     </div>
 </template>
 
