@@ -1,13 +1,11 @@
 <template>
     <div class="home">
-        i am home
         <div class="contacts">
           <Eachcontact 
             v-for="(contact, index) in contacts"
             :key="contact.index"
             :contact="contact"
           />
-          {{ contacts }}
         </div>
     </div>
 </template>
@@ -39,3 +37,15 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+@import "@/assets/scss/variable.scss";
+  div.home{
+    background: black;
+    min-height: calc(100vh - 100px);
+
+    
+  }
+    
+</style>
+
