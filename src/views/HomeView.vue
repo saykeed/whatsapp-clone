@@ -5,8 +5,7 @@
           <Eachcontact 
             v-for="(contact, index) in contacts"
             :key="contact.index"
-            :name="contact.name"
-            :tel="contact.tel"
+            :contact="contact"
           />
         </div>
     </div>
@@ -32,6 +31,8 @@ export default {
     const contacts = computed(() => {
          return store.state.contacts
     })
+
+   
 
     return { contacts }
   }

@@ -1,6 +1,6 @@
 <template>
     <div class="eachcontact">
-        {{name}} -- {{ tel }}
+        {{contact}}
     </div>
 </template>
 
@@ -10,7 +10,7 @@ import {computed} from 'vue'
 
 export default {
   name: 'HomeView',
-  props: ['name', 'tel'],
+  props: ['contact'],
   components: { },
   setup() {
     // variables
