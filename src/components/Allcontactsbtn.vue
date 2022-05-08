@@ -5,27 +5,28 @@
 </template>
 
 <script>
+import {useStore} from 'vuex'
 
 export default{
     name: 'contactBtn',
     setup() {
         // variables
-
+        const store = useStore()
 
         // functions
         const loadContacts = async () => {
             
             // const supported = ('contacts' in navigator && 'ContactsManager' in window)
-            // if ('contacts' in navigator && 'ContactsManager' in window) {
-            //     alert('yes')
-            // } else {
-            //     alert('no')
-            // }    
+            if ('contacts' in navigator && 'ContactsManager' in window) {
+                alert('yes')
+            } else {
+                alert('no')
+            }    
 
             try {
                 const contacts = await navigator.contacts.select(['name', 'tel'], {multiple: true});
                 console.log(contacts)
-                
+                store.commit('updateContacts', contacts)
             } catch (err) {
                 console.log(err)
             }
