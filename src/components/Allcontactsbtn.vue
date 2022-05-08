@@ -26,7 +26,10 @@ export default{
             try {
                 const contacts = await navigator.contacts.select(['name', 'tel'], {multiple: true});
                 console.log(contacts)
-                store.commit('updateContacts', contacts)
+                contacts.forEach(contact => {
+                    store.commit('updateContacts', contact)
+                });
+                
             } catch (err) {
                 console.log(err)
             }
