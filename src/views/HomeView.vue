@@ -2,18 +2,24 @@
     <div class="home">
         i am home
         <div class="contacts">
-          {{ contacts}}
+          <Eachcontact 
+            v-for="(contact, index) in contacts"
+            :key="contact.index"
+            :name="contact.name.join(', ')"
+            :tel="contact.tel.join(', ')"
+          />
         </div>
     </div>
 </template>
 
 <script>
+import Eachcontact from '@/components/Eachcontact.vue'
 import {useStore} from 'vuex'
 import {computed} from 'vue'
 
 export default {
   name: 'HomeView',
-  components: { },
+  components: { Eachcontact },
   setup() {
     // variables
     const store = useStore()
