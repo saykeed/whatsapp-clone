@@ -17,11 +17,11 @@ export default{
         const loadContacts = async () => {
             
             // const supported = ('contacts' in navigator && 'ContactsManager' in window)
-            if ('contacts' in navigator && 'ContactsManager' in window) {
-                alert('yes')
-            } else {
-                alert('no')
-            }    
+            // if ('contacts' in navigator && 'ContactsManager' in window) {
+            //     alert('yes')
+            // } else {
+            //     alert('no')
+            // }    
 
             try {
                 const contacts = await navigator.contacts.select(['name', 'tel'], {multiple: true});

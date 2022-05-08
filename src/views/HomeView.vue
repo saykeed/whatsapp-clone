@@ -5,8 +5,8 @@
           <Eachcontact 
             v-for="(contact, index) in contacts"
             :key="contact.index"
-            :name="contact.name.join(', ')"
-            :tel="contact.tel.join(', ')"
+            :name="contact.name"
+            :tel="contact.tel"
           />
         </div>
     </div>
