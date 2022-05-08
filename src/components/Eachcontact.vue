@@ -1,6 +1,6 @@
 <template>
     <div class="eachcontact">
-        {{contact}}
+        {{contact.name[0]}}
     </div>
 </template>
 
