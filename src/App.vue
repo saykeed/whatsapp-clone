@@ -1,10 +1,19 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav>
+  <Topnav />
+  <Tabs />
+  <Allcontactsbtn />
   <router-view/>
 </template>
+
+<script>
+import Topnav from '@/components/Topnav.vue'
+import Tabs from '@/components/Tabs.vue'
+import Allcontactsbtn from '@/components/Allcontactsbtn.vue'
+
+export default {
+  components: { Topnav, Tabs, Allcontactsbtn }
+}
+</script>
 
 <style lang="scss">
 #app {
@@ -13,18 +22,5 @@
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-}
-
-nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
 }
 </style>
