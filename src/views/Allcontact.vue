@@ -1,6 +1,7 @@
 <template>
-    <div class="home">
+    <div class="allcontacts">
         <div class="contacts">
+            i am all contacts
           <Eachcontact 
             v-for="(contact, index) in contacts"
             :key="contact.index"
@@ -11,12 +12,13 @@
 </template>
 
 <script>
+import ContactsX from 'cordova-plugin-contacts-x';
 import Eachcontact from '@/components/Eachcontact.vue'
 import {useStore} from 'vuex'
-import {computed} from 'vue'
+import {computed, onMounted} from 'vue'
 
 export default {
-  name: 'HomeView',
+  name: 'allContactPage',
   components: { Eachcontact },
   setup() {
     // variables
@@ -31,6 +33,17 @@ export default {
          return store.state.contacts
     })
 
+    
+    // mounted 
+        onMounted(() => {
+            alert('mounted')
+            window.ContactsX.hasPermission(function(success) {
+                alert('success');
+            }, function (error) {
+                alert('error');
+            });
+        })
+
    
 
     return { contacts }
@@ -40,7 +53,7 @@ export default {
 
 <style lang="scss">
 @import "@/assets/scss/variable.scss";
-  div.home{
+  div.allcontacts{
     background: black;
     min-height: calc(100vh - 100px);
   }
