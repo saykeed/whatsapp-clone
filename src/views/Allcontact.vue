@@ -31,7 +31,7 @@ export default {
     // functions
     const fetchContact = () => {
       alert('fetcing')
-      window.ContactsX.hasPermission(function(success) {
+      ContactsX.hasPermission(function(success) {
                 alert('success');
             }, function (error) {
                 alert('error');
