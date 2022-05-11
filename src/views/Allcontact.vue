@@ -9,6 +9,7 @@
             :contact="contact"
           />
         </div>
+        <button @click="fetchContact">fetch contats</button>
     </div>
 </template>
 
@@ -28,7 +29,14 @@ export default {
 
 
     // functions
-
+    const fetchContact = () => {
+      alert('fetcing')
+      window.ContactsX.hasPermission(function(success) {
+                alert('success');
+            }, function (error) {
+                alert('error');
+            });
+    }
 
     // computed
     const contacts = computed(() => {
@@ -37,18 +45,14 @@ export default {
 
     
     // mounted 
-        onMounted(() => {
-            alert('mounted')
-            window.ContactsX.hasPermission(function(success) {
-                alert('success');
-            }, function (error) {
-                alert('error');
-            });
-        })
+        // onMounted(() => {
+        //     alert('mounted')
+            
+        // })
 
    
 
-    return { contacts }
+    return { contacts, fetchContact }
   }
 }
 </script>
@@ -59,6 +63,11 @@ export default {
     background: black;
     min-height: calc(100vh - 70px);
     margin-top: 70px;
+    
+    button{
+      background: blue;
+      color: red;
+    }
   }
     
 </style>
