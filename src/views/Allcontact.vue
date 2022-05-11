@@ -1,5 +1,6 @@
 <template>
     <div class="allcontacts">
+        <AllcontactHeader />
         <div class="contacts">
             i am all contacts
           <Eachcontact 
@@ -14,12 +15,13 @@
 <script>
 import ContactsX from 'cordova-plugin-contacts-x';
 import Eachcontact from '@/components/Eachcontact.vue'
+import AllcontactHeader from '@/components/AllcontactHeader.vue'
 import {useStore} from 'vuex'
 import {computed, onMounted} from 'vue'
 
 export default {
   name: 'allContactPage',
-  components: { Eachcontact },
+  components: { Eachcontact, AllcontactHeader },
   setup() {
     // variables
     const store = useStore()
@@ -35,14 +37,14 @@ export default {
 
     
     // mounted 
-        onMounted(() => {
-            alert('mounted')
-            window.ContactsX.hasPermission(function(success) {
-                alert('success');
-            }, function (error) {
-                alert('error');
-            });
-        })
+        // onMounted(() => {
+        //     alert('mounted')
+        //     window.ContactsX.hasPermission(function(success) {
+        //         alert('success');
+        //     }, function (error) {
+        //         alert('error');
+        //     });
+        // })
 
    
 
@@ -55,7 +57,8 @@ export default {
 @import "@/assets/scss/variable.scss";
   div.allcontacts{
     background: black;
-    min-height: calc(100vh - 100px);
+    min-height: calc(100vh - 70px);
+    margin-top: 70px;
   }
     
 </style>

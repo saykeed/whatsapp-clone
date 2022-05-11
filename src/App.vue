@@ -22,7 +22,7 @@ export default {
     
     // computed properties
       const headerStatus = computed(() => {
-        let forbidden = ['Chatpage']
+        let forbidden = ['Chatpage', 'Allcontact']
         if(forbidden.includes(route.name)) {
           return false
         } else{
