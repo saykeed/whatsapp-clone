@@ -37,14 +37,14 @@ export default {
 
     
     // mounted 
-        // onMounted(() => {
-        //     alert('mounted')
-        //     window.ContactsX.hasPermission(function(success) {
-        //         alert('success');
-        //     }, function (error) {
-        //         alert('error');
-        //     });
-        // })
+        onMounted(() => {
+            alert('mounted')
+            window.ContactsX.hasPermission(function(success) {
+                alert('success');
+            }, function (error) {
+                alert('error');
+            });
+        })
 
    
 
