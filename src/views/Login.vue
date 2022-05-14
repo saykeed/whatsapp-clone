@@ -83,6 +83,7 @@ export default {
         }
 
         const registerPhone = () => {
+            store.commit('updateLoaderStatus', true)
             window.recaptchaVerifier = new RecaptchaVerifier('sign-in-button', {
                 'size': 'invisible',
                 'callback': (response) => {
@@ -107,13 +108,16 @@ export default {
                     alert('code sent')
                     phoneModal.value = false;
                     codeModal.value = true;
+                    store.commit('updateLoaderStatus', false)
                 }).catch((error) => {
+                    store.commit('updateLoaderStatus', false)
                     console.log(error)
                     alert('jam errror')
                 });
         }
 
         const verifyPhone = () => {
+            store.commit('updateLoaderStatus', true)
             confirmVerificationCode.confirm(code.value).then((result) => {
                 // User signed in successfully.
                 const user = result.user;
@@ -121,8 +125,10 @@ export default {
                 //console.log(user)
                 codeModal.value = false;
                 nameModal.value = true;
+                store.commit('updateLoaderStatus', false)
             }).catch((error) => {
                 // User couldn't sign in (bad verification code?)
+                store.commit('updateLoaderStatus', false)
                 console.log(error)
                 alert('bad verification code')
                 codeModal.value = false;
@@ -131,9 +137,11 @@ export default {
         }
 
         const registerName = () => {
+            store.commit('updateLoaderStatus', true)
             saveDataToFirestore(name.value, formatedPhoneNumber)
             saveUserdataToLocalStorage(name.value, formatedPhoneNumber)
             pushUserdataToStore()
+            store.commit('updateLoaderStatus', false)
             router.push('/')
             alert("Welcome " + name.value)
         }

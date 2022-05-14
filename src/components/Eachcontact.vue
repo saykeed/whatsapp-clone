@@ -5,7 +5,7 @@
             <h3>{{contact.Name}}</h3>
             <p>{{ contact.lastMsg}}</p>
         </div>
-        <p>{{ contact.timestamp }}</p>
+        <p class="time">{{ contact.time }}</p>
     </router-link>
     <!-- 
             name: {{contact.name[0]}}
@@ -56,7 +56,7 @@ export default {
         }
 
         div.info{
-            width: 100%;
+            width: calc(100% - 180px);
             margin-left: 1rem;
             text-align: left;
 
@@ -66,7 +66,16 @@ export default {
 
             p{
                 color: $fadeBlack;
+                width: 80%;
+                text-overflow: ellipsis;
+                overflow: hidden;
+                white-space: nowrap;
             }
+        }
+        p.time{
+            color: $fadeBlack;
+            font-size: 0.8rem;
+            width: 120px;
         }
     }
 

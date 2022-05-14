@@ -14,6 +14,7 @@ const firebaseConfig = {
 initializeApp(firebaseConfig);
 import { createStore } from 'vuex'
 import sortObjectsArray from 'sort-objects-array'
+import dateFormat, { masks } from "dateformat";
 import { getFirestore, collection, getDocs, doc, getDoc, onSnapshot } from "firebase/firestore";
 const db = getFirestore()
 
@@ -21,17 +22,21 @@ const db = getFirestore()
 export default createStore({
   state: {
     userData: null,
-    contacts: [],
-    recentChats: []
+    // contacts: [],
+    recentChats: [],
+    loaderStatus: false
   },
   getters: {
   },
   mutations: {
-    updateContacts(state, payload) {
-      state.contacts.push(payload)
-    },
+    // updateContacts(state, payload) {
+    //   state.contacts.push(payload)
+    // },
     updateUserdata(state, payload) {
       state.userData = payload
+    },
+    updateLoaderStatus(state, payload) {
+      state.loaderStatus = payload
     },
     updateRecentChats(state, payload) {
       state.recentChats = payload
@@ -42,7 +47,10 @@ export default createStore({
       const querySnapshot = await getDocs(collection(db, "regUsers", state.userData.Tel, "Connects"));
       let data = []
       querySnapshot.forEach((doc) => {
-        data.push(doc.data())
+        data.push({
+          ...doc.data(), 
+          time: dateFormat(new Date(doc.data().timestamp), "dd/mm/yy h:MM TT")
+        })
         //data = sortObjectsArray(data, 'timestamp')
       });
       let sorted = sortObjectsArray(data, 'timestamp', 'desc')

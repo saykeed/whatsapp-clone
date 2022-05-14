@@ -70,18 +70,26 @@ export default {
               Name: data.value.Name,
               Tel: data.value.Tel
             });
+            await setDoc(doc(db, "regUsers", receiverTel.phoneNumber, "Connects", senderTel), {
+              lastMsg: text,
+              timestamp: time,
+              Name: senderName,
+              Tel: senderTel
+            });
+            // get the most recent chat at display them at the home page
             store.dispatch('fetchRecentChats')
-            // addDoc(collection(db, "regUsers", receiverTel.phoneNumber, 'Inbox'),{
-            //   text: text,
-            //   senderName: senderName,
-            //   senderTel: senderTel,
-            //   receiverTel: receiverTel.phoneNumber,
-            //   timestamp: time
-            // }).then(() => {
-            //     //console.log('inbox')
-            // }).catch((err) => {
-            //     console.log(err)
-            // })
+
+            addDoc(collection(db, "regUsers", receiverTel.phoneNumber, 'Inbox'),{
+              text: text,
+              senderName: senderName,
+              senderTel: senderTel,
+              receiverTel: receiverTel.phoneNumber,
+              timestamp: time
+            }).then(() => {
+                //console.log('inbox')
+            }).catch((err) => {
+                console.log(err)
+            })
       }
 
       const getChats = async () => {
@@ -92,7 +100,7 @@ export default {
             if (change.type === "added") {
                 chats.value.push({
                   ...change.doc.data(), 
-                  time: dateFormat(new Date(change.doc.data().timestamp), "h:MM TT")
+                  time: dateFormat(new Date(change.doc.data().timestamp), "dd/mm/yy h:MM TT")
                 })
             }
           });
@@ -109,7 +117,7 @@ export default {
             if (change.type === "added") {
                 chats.value.push({
                   ...change.doc.data(), 
-                  time: dateFormat(new Date(change.doc.data().timestamp), "h:MM TT")
+                  time: dateFormat(new Date(change.doc.data().timestamp), "dd/mm/yy h:MM TT")
                 })
             }
           });

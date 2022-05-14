@@ -3,11 +3,11 @@
         <SearchUser />
         <div class="contacts" style="color: white;">
           <Eachcontact 
-            v-for="(contact) in recentChats"
+            v-for="contact in recentChats"
             :key="contact.timestamp"
             :contact="contact"
           />
-          {{ recentChats }}
+          
         </div>
         
     </div>
@@ -18,8 +18,8 @@ import Eachcontact from '@/components/Eachcontact.vue'
 import SearchUser from '@/components/SearchUser.vue'
 import {useStore} from 'vuex'
 import {computed, onMounted, ref, watch} from 'vue'
-import { getFirestore, collection, getDocs, doc, getDoc, onSnapshot } from "firebase/firestore";
-import sortObjectsArray from 'sort-objects-array'
+import { getFirestore, collection, onSnapshot } from "firebase/firestore";
+
 
 export default {
   name: 'HomeView',
@@ -32,7 +32,17 @@ export default {
 
 
     // functions
-    
+    const setSnapshotOnInbox = (userData) => {
+      const q = collection(db, "regUsers", userData.Tel, 'Inbox');
+      const unsubscribe = onSnapshot(q, (snapshot) => {
+        snapshot.docChanges().forEach((change) => {
+          if (change.type === "added") {
+              //console.log('new message in inbox')
+              store.dispatch('fetchRecentChats')
+          }
+        });
+      });
+    }
     
 
     // computed
@@ -50,6 +60,7 @@ export default {
     // setup a watch on the userData
     watch(userData, () => {
       store.dispatch('fetchRecentChats')
+      setSnapshotOnInbox(userData.value)
     })
 
 
@@ -69,6 +80,7 @@ export default {
 
 <style lang="scss">
 @import "@/assets/scss/variable.scss";
+
   div.home{
     background: black;
     min-height: calc(100vh - 100px);

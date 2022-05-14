@@ -3,6 +3,7 @@
   <Tabs v-if="headerStatus"/>
   <!-- <Allcontactsbtn v-if="headerStatus"/> -->
   <Menumenu v-if="menuBarStatus" @closeMenuOptions="closeMenuOptions"/>
+  <Mainloader v-if="loaderStatus"/>
   <router-view/>
 </template>
 
@@ -10,6 +11,7 @@
 import Topnav from '@/components/Topnav.vue'
 import Tabs from '@/components/Tabs.vue'
 import Menumenu from '@/components/Menumenu.vue'
+import Mainloader from '@/components/Mainloader.vue'
 import Allcontactsbtn from '@/components/Allcontactsbtn.vue'
 import { useRouter, useRoute } from 'vue-router'
 import { computed, onBeforeMount, ref } from 'vue'
@@ -18,7 +20,7 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { getFirestore, doc, getDoc } from "firebase/firestore";
 
 export default {
-  components: { Topnav, Tabs, Allcontactsbtn, Menumenu },
+  components: { Topnav, Tabs, Allcontactsbtn, Menumenu, Mainloader },
   setup() {
     // variables
     const route = useRoute()
@@ -59,6 +61,11 @@ export default {
         }
       })
 
+      const loaderStatus = computed(() => {
+        return store.state.loaderStatus
+    })
+
+
     // mounted properties
     onBeforeMount( async () => {
       console.log('app unbeforemount')
@@ -74,7 +81,7 @@ export default {
         });
     })
 
-    return { headerStatus, menuBarStatus, showMenuOptions, closeMenuOptions }
+    return { headerStatus, menuBarStatus, showMenuOptions, closeMenuOptions, loaderStatus }
   }
 }
 </script>
