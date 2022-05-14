@@ -9,12 +9,10 @@
             :contact="contact"
           />
         </div>
-        <button @click="fetchContact">fetch contats</button>
     </div>
 </template>
 
 <script>
-import ContactsX from 'cordova-plugin-contacts-x';
 import Eachcontact from '@/components/Eachcontact.vue'
 import AllcontactHeader from '@/components/AllcontactHeader.vue'
 import {useStore} from 'vuex'
@@ -29,30 +27,18 @@ export default {
 
 
     // functions
-    const fetchContact = () => {
-      alert('fetcing')
-      ContactsX.hasPermission(function(success) {
-                alert('success');
-            }, function (error) {
-                alert('error');
-            });
-    }
+   
 
     // computed
     const contacts = computed(() => {
          return store.state.contacts
     })
 
-    
-    // mounted 
-        // onMounted(() => {
-        //     alert('mounted')
-            
-        // })
+   
 
    
 
-    return { contacts, fetchContact }
+    return { contacts }
   }
 }
 </script>

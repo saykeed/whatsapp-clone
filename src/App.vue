@@ -1,28 +1,57 @@
 <template>
-  <Topnav v-if="headerStatus"/>
+  <Topnav v-if="headerStatus" @showMenuOptions="showMenuOptions"/>
   <Tabs v-if="headerStatus"/>
-  <Allcontactsbtn v-if="headerStatus"/>
+  <!-- <Allcontactsbtn v-if="headerStatus"/> -->
+  <Menumenu v-if="menuBarStatus" @closeMenuOptions="closeMenuOptions"/>
   <router-view/>
 </template>
 
 <script>
 import Topnav from '@/components/Topnav.vue'
 import Tabs from '@/components/Tabs.vue'
+import Menumenu from '@/components/Menumenu.vue'
 import Allcontactsbtn from '@/components/Allcontactsbtn.vue'
 import { useRouter, useRoute } from 'vue-router'
-import { computed } from 'vue'
-
+import { computed, onBeforeMount, ref } from 'vue'
+import {useStore} from 'vuex'
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { getFirestore, doc, getDoc } from "firebase/firestore";
 
 export default {
-  components: { Topnav, Tabs, Allcontactsbtn },
+  components: { Topnav, Tabs, Allcontactsbtn, Menumenu },
   setup() {
     // variables
     const route = useRoute()
+    let userData;
+    const router = useRouter()
+    const menuBarStatus = ref(false)
+    const store = useStore()
+    const auth = getAuth()
+    const db = getFirestore()
 
+    // functions 
+    const showMenuOptions = () => {
+      menuBarStatus.value = true;
+    }
+
+    const closeMenuOptions = () => {
+      menuBarStatus.value = false;
+    }
+
+    const fetchUserInfoFromDB = async (userTel) => {
+        const docRef = doc(db, "regUsers", userTel);
+        const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists()) {
+          store.commit('updateUserdata', docSnap.data())
+        } else {
+          alert('No details of this user in the database')
+        }
+    }
     
     // computed properties
       const headerStatus = computed(() => {
-        let forbidden = ['Chatpage', 'Allcontact']
+        let forbidden = ['Chatpage', 'Allcontact', 'Login']
         if(forbidden.includes(route.name)) {
           return false
         } else{
@@ -30,7 +59,22 @@ export default {
         }
       })
 
-    return { headerStatus }
+    // mounted properties
+    onBeforeMount( async () => {
+      console.log('app unbeforemount')
+        onAuthStateChanged(auth, async (user) => {
+          if (user) {
+              let userTel = user.phoneNumber;
+              fetchUserInfoFromDB(userTel)
+          } else {
+            router.push('/login')
+          }
+
+          
+        });
+    })
+
+    return { headerStatus, menuBarStatus, showMenuOptions, closeMenuOptions }
   }
 }
 </script>

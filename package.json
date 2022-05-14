@@ -9,7 +9,11 @@
   "dependencies": {
     "cordova-plugin-contacts-x": "^2.1.1",
     "core-js": "^3.8.3",
+    "dateformat": "^5.0.3",
     "firebase": "^9.8.0",
+    "gsap": "^3.10.4",
+    "phone": "^3.1.17",
+    "sort-objects-array": "^1.7.1",
     "vue": "^3.2.13",
     "vue-router": "^4.0.3",
     "vuex": "^4.0.0"

@@ -2,24 +2,32 @@
     <div class="chatbar">
         <div class="input">
             <i class="material-icons">tag_faces</i>
-            <textarea></textarea>
+            <textarea v-model="text"></textarea>
             <i class="material-icons">attachment</i>
             <i class="material-icons camera">camera_alt</i>
         </div>
-        <Sendbtn />
+        <Sendbtn @click="sendMessage"/>
     </div>
 </template>
 
 <script>
 import Sendbtn from '@/components/Sendbtn.vue'
+import { ref } from '@vue/reactivity'
 export default{
     name: 'chatpageheader',
     props: ['name'],
     components: { Sendbtn },
-    setup() {
+    setup(props, { emit }) {
+        // variables
+        const text = ref(null)
         
+        // functions
+        const sendMessage = () => {
+            emit('sendMessage', [text.value])
+            text.value = null
+        }
 
-      return {  }  
+      return { text, sendMessage }  
     },
 }
 </script>

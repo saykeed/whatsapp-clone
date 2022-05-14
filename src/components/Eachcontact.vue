@@ -2,9 +2,10 @@
     <router-link class="eachcontact" :to="`/chatpage/${JSON.stringify(contact)}`">
         <img src="https://cdn.pixabay.com/photo/2013/07/13/12/07/avatar-159236__340.png" alt=""/>
         <div class="info">
-            <h3>{{contact.name[0]}}</h3>
-            <p>{{ contact.tel[0]}}</p>
+            <h3>{{contact.Name}}</h3>
+            <p>{{ contact.lastMsg}}</p>
         </div>
+        <p>{{ contact.timestamp }}</p>
     </router-link>
     <!-- 
             name: {{contact.name[0]}}

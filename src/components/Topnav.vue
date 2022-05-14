@@ -4,7 +4,7 @@
             <h2>Whatsapp</h2>
             <div class="icons">
                 <i class="material-icons">search</i>
-                <i class="material-icons">menu</i>
+                <i class="material-icons" @click="openMenu">menu</i>
             </div>
         </div> 
     </div>
@@ -14,10 +14,14 @@
 
 export default{
     name: 'TopNav',
-    setup() {
-        
+    setup(props, { emit }) {
+    
+        // functions 
+        const openMenu = () => {
+            emit('showMenuOptions')
+        }
 
-      return {  }  
+      return { openMenu }  
     },
 }
 </script>
