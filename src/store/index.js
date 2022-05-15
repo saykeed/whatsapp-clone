@@ -22,16 +22,14 @@ const db = getFirestore()
 export default createStore({
   state: {
     userData: null,
-    // contacts: [],
     recentChats: [],
-    loaderStatus: false
+    loaderStatus: false,
+    welcomeStatus: false
   },
   getters: {
   },
   mutations: {
-    // updateContacts(state, payload) {
-    //   state.contacts.push(payload)
-    // },
+    
     updateUserdata(state, payload) {
       state.userData = payload
     },
@@ -40,7 +38,10 @@ export default createStore({
     },
     updateRecentChats(state, payload) {
       state.recentChats = payload
-    }
+    },
+    updateWelcomeStatus(state, payload) {
+      state.welcomeStatus = payload
+    },
   },
   actions: {
     async fetchRecentChats({context, commit, state}) {

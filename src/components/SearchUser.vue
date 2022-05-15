@@ -32,6 +32,7 @@ export default {
 
         // functions
         const searchForRegUser = async () => {
+            searchResult.value = []
             if (searchTerm.value) {
                 //alert(searchTerm.value)
                 const q = query(collection(db, "regUsers"), where("Name", "==", searchTerm.value));
@@ -40,7 +41,6 @@ export default {
                     //console.log(doc.id, " => ", doc.data());
                     searchResult.value.push(doc.data())
                 });
-               
             }
         }
         const addUser = (user) => {

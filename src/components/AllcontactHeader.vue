@@ -2,8 +2,7 @@
     <div class="allcontactheader">
         <router-link to="/"><i class="material-icons">arrow_back</i></router-link>
         <div class="headerText">
-            <h3>Select Contact</h3>
-            <p>406 contacts</p>
+            <h3>Registered Users</h3>
         </div>
         <div class="icons">
             <i class="material-icons">search</i>

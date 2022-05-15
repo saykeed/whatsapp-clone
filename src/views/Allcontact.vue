@@ -1,13 +1,15 @@
 <template>
     <div class="allcontacts">
         <AllcontactHeader />
-        <div class="contacts">
-            i am all contacts
+        <div class="contacts" v-if="contacts.length">
           <Eachcontact 
             v-for="(contact, index) in contacts"
             :key="contact.index"
             :contact="contact"
           />
+        </div>
+        <div v-else>
+           <Skelenton v-for="(skelenton, index) in fallbackCount" :key="skelenton.index"/>
         </div>
     </div>
 </template>
@@ -15,30 +17,37 @@
 <script>
 import Eachcontact from '@/components/Eachcontact.vue'
 import AllcontactHeader from '@/components/AllcontactHeader.vue'
-import {useStore} from 'vuex'
-import {computed, onMounted} from 'vue'
+import Skelenton from '@/components/Skelenton.vue'
+import {computed, onMounted, ref} from 'vue'
+import { getFirestore, collection, getDocs } from "firebase/firestore";
 
 export default {
   name: 'allContactPage',
-  components: { Eachcontact, AllcontactHeader },
+  components: { Eachcontact, AllcontactHeader, Skelenton },
   setup() {
     // variables
-    const store = useStore()
+    const db = getFirestore()
+    const contacts = ref([])
+    const fallbackCount = ref(10)
 
 
     // functions
-   
+    const loadAllRegUsers = async () => {
+          const querySnapshot = await getDocs(collection(db, "regUsers"));
+          querySnapshot.forEach((doc) => {
+            //console.log(doc.id, " => ", doc.data());
+            contacts.value.push(doc.data())
+          });
+    }
 
-    // computed
-    const contacts = computed(() => {
-         return store.state.contacts
+    // mounted
+    onMounted(() => {
+      loadAllRegUsers()
     })
 
-   
 
    
-
-    return { contacts }
+    return { contacts, fallbackCount }
   }
 }
 </script>

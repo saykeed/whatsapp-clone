@@ -1,14 +1,16 @@
 <template>
   <Topnav v-if="headerStatus" @showMenuOptions="showMenuOptions"/>
   <Tabs v-if="headerStatus"/>
-  <!-- <Allcontactsbtn v-if="headerStatus"/> -->
+  <Allcontactsbtn v-if="headerStatus"/>
   <Menumenu v-if="menuBarStatus" @closeMenuOptions="closeMenuOptions"/>
   <Mainloader v-if="loaderStatus"/>
+  <Welcome v-if="welcomeStatus"/>
   <router-view/>
 </template>
 
 <script>
 import Topnav from '@/components/Topnav.vue'
+import Welcome from '@/components/Welcome.vue'
 import Tabs from '@/components/Tabs.vue'
 import Menumenu from '@/components/Menumenu.vue'
 import Mainloader from '@/components/Mainloader.vue'
@@ -20,7 +22,7 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { getFirestore, doc, getDoc } from "firebase/firestore";
 
 export default {
-  components: { Topnav, Tabs, Allcontactsbtn, Menumenu, Mainloader },
+  components: { Topnav, Tabs, Allcontactsbtn, Menumenu, Mainloader, Welcome },
   setup() {
     // variables
     const route = useRoute()
@@ -40,16 +42,6 @@ export default {
       menuBarStatus.value = false;
     }
 
-    const fetchUserInfoFromDB = async (userTel) => {
-        const docRef = doc(db, "regUsers", userTel);
-        const docSnap = await getDoc(docRef);
-
-        if (docSnap.exists()) {
-          store.commit('updateUserdata', docSnap.data())
-        } else {
-          alert('No details of this user in the database')
-        }
-    }
     
     // computed properties
       const headerStatus = computed(() => {
@@ -62,26 +54,16 @@ export default {
       })
 
       const loaderStatus = computed(() => {
-        return store.state.loaderStatus
-    })
+          return store.state.loaderStatus
+      })
+      const welcomeStatus = computed(() => {
+          return store.state.welcomeStatus
+      })
 
 
-    // mounted properties
-    onBeforeMount( async () => {
-      console.log('app unbeforemount')
-        onAuthStateChanged(auth, async (user) => {
-          if (user) {
-              let userTel = user.phoneNumber;
-              fetchUserInfoFromDB(userTel)
-          } else {
-            router.push('/login')
-          }
+    
 
-          
-        });
-    })
-
-    return { headerStatus, menuBarStatus, showMenuOptions, closeMenuOptions, loaderStatus }
+    return { headerStatus, menuBarStatus, showMenuOptions, closeMenuOptions, loaderStatus, welcomeStatus }
   }
 }
 </script>

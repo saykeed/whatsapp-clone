@@ -52,34 +52,21 @@ export default {
 
         // functions
         const saveDataToFirestore = async (name, tel) => {
-            // const docRef = await addDoc(collection(db, "regUsers"),{
-            //     Name: name, Tel: tel
-            // })
             await setDoc(doc(db, "regUsers", tel), {
                 Name: name,
                 Tel: tel
             }).then(() => {
-                console.log('successful')
+                console.log('userData pushed to database')
+                pushUserdataToStore(name, tel)
+                router.push('/')
+                alert("Welcome " + name)
             }).catch((err) => {
                 console.log(err)
             })
         }
 
-        const saveUserdataToLocalStorage = (name, tel) => {
-            if (!localStorage.getItem('saykeedWhatsappClonePhoneNumber')) {
-                localStorage.setItem('saykeedWhatsappClonePhoneNumber', '{}')
-            }
-            
-            let data = {
-                name: name,
-                tel: tel
-            }
-            localStorage.setItem('saykeedWhatsappClonePhoneNumber', JSON.stringify(data))
-        }
-
-        const pushUserdataToStore = () => {
-            let userData = JSON.parse(localStorage.getItem('saykeedWhatsappClonePhoneNumber'))
-            store.commit('updateUserdata', userData)
+        const pushUserdataToStore = (name, tel) => {
+            store.commit('updateUserdata', {Name: name, Tel: tel})
         }
 
         const registerPhone = () => {
@@ -138,13 +125,9 @@ export default {
 
         const registerName = () => {
             saveDataToFirestore(name.value, formatedPhoneNumber)
-            saveUserdataToLocalStorage(name.value, formatedPhoneNumber)
-            pushUserdataToStore()
-            router.push('/')
-            alert("Welcome " + name.value)
         }
 
-
+        
       return { registerPhone, verifyPhone, phone, code, name, registerName,
       phoneModal, codeModal, nameModal }
     }
