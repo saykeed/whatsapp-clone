@@ -120,12 +120,12 @@ export default {
             store.commit('updateLoaderStatus', true)
             confirmVerificationCode.confirm(code.value).then((result) => {
                 // User signed in successfully.
+                store.commit('updateLoaderStatus', false)
                 const user = result.user;
                 alert('logged in ')
                 //console.log(user)
                 codeModal.value = false;
                 nameModal.value = true;
-                store.commit('updateLoaderStatus', false)
             }).catch((error) => {
                 // User couldn't sign in (bad verification code?)
                 store.commit('updateLoaderStatus', false)
@@ -137,11 +137,9 @@ export default {
         }
 
         const registerName = () => {
-            store.commit('updateLoaderStatus', true)
             saveDataToFirestore(name.value, formatedPhoneNumber)
             saveUserdataToLocalStorage(name.value, formatedPhoneNumber)
             pushUserdataToStore()
-            store.commit('updateLoaderStatus', false)
             router.push('/')
             alert("Welcome " + name.value)
         }

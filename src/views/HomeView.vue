@@ -33,6 +33,7 @@ export default {
 
     // functions
     const setSnapshotOnInbox = (userData) => {
+      store.commit('updateLoaderStatus', false)
       const q = collection(db, "regUsers", userData.Tel, 'Inbox');
       const unsubscribe = onSnapshot(q, (snapshot) => {
         snapshot.docChanges().forEach((change) => {
@@ -70,9 +71,10 @@ export default {
     // mounted
     onMounted(() => {
       //console.log('home mounted')
+      
     })
 
-
+   // store.commit('updateLoaderStatus', true)
     return { contacts, recentChats }
   }
 }

@@ -1,19 +1,16 @@
 <template>
-    <router-link class="eachcontact" :to="`/chatpage/${JSON.stringify(contact)}`">
+    <div class="eachcontact" @click="addUser">
         <img src="https://cdn.pixabay.com/photo/2013/07/13/12/07/avatar-159236__340.png" alt=""/>
         <div class="info">
             <h3>{{contact.Name}}</h3>
             <p>{{ contact.lastMsg}}</p>
         </div>
         <p class="time">{{ contact.time }}</p>
-    </router-link>
-    <!-- 
-            name: {{contact.name[0]}}
-        <p> tel: {{ contact.tel[0]}}</p>
-     -->
+    </div>
 </template>
 
 <script>
+import { useRouter } from 'vue-router'
 
 export default {
   name: 'HomeView',
@@ -21,12 +18,19 @@ export default {
   components: { },
   setup(props) {
     // variables
-
+    const router = useRouter()
 
     // functions
-    
+        const addUser = () => {
+            router.push({
+                name: 'Chatpage',
+                params: {
+                    id: JSON.stringify(props.contact)
+                }
+            })
+        }
 
-    return {  }
+    return { addUser }
   }
 }
 </script>
@@ -34,7 +38,7 @@ export default {
 <style lang="scss">
 @import "@/assets/scss/variable.scss";
 
-    a.eachcontact{
+    div.eachcontact{
         height: 80px;
         display: flex;
         align-items: center;
@@ -44,9 +48,9 @@ export default {
         text-decoration: none;
         -webkit-tap-highlight-color: $fadeBlack;
 
-        &:active{
-            background: $fadeBlack;
-        }
+        // &:active{
+        //     background: $fadeBlack;
+        // }
 
         img{
             width: 50px;

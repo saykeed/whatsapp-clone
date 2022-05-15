@@ -50,13 +50,6 @@ export default {
                     id: JSON.stringify(user)
                 }
             })
-            // if (!localStorage.getItem('saykeedWhatsappCloneChatlist')) {
-            //     localStorage.setItem('saykeedWhatsappCloneChatlist', '[]')
-            // }
-            // let oldData = JSON.parse(localStorage.getItem('saykeedWhatsappCloneChatlist'))
-            // oldData.push(user)
-            // localStorage.setItem('saykeedWhatsappCloneChatlist', JSON.stringify(oldData))
-           
         }
 
       return { searchTerm, searchForRegUser, searchResult, addUser }

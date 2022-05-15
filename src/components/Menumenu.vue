@@ -10,22 +10,25 @@
 <script>
 import { ref } from '@vue/reactivity'
 import { getAuth, signOut } from "firebase/auth";
+import { useRouter } from 'vue-router'
 
 export default {
     setup(props, { emit }) {
         // variables
         const auth = getAuth();
+        const router = useRouter()
 
         // functions 
         const closeMenuOptions = () => {
             emit('closeMenuOptions')
         }
         const logout = () => {
-            
             signOut(auth).then(() => {
-                // Sign-out successful.
+                closeMenuOptions()
+                router.push('/login')
             }).catch((error) => {
                 // An error happened.
+                alert('logout Error')
             });
         }
 
