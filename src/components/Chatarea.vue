@@ -2,7 +2,7 @@
     <div class="chatComponent">
         <div v-for="(chat) in chats"
             :key="chat.timestamp"
-            :class="{ right: chat.senderTel == senderData.Tel, left: chat.senderTel == receiverTel.phoneNumber }"
+            :class="{ right: chat.senderTel == senderData.Tel, left: chat.senderTel == receiverTel }"
         >
             <div class="actualChat">
                 <p>{{ chat.text }}</p>
