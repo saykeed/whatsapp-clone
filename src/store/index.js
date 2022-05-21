@@ -24,7 +24,8 @@ export default createStore({
     userData: null,
     recentChats: [],
     loaderStatus: false,
-    welcomeStatus: false
+    welcomeStatus: false,
+    errorAlertStatus: false
   },
   getters: {
   },
@@ -41,6 +42,9 @@ export default createStore({
     },
     updateWelcomeStatus(state, payload) {
       state.welcomeStatus = payload
+    },
+    updateErrorAlertStatus(state, payload) {
+      state.errorAlertStatus = payload
     },
   },
   actions: {
@@ -62,8 +66,3 @@ export default createStore({
   }
 })
 
-// {'name': ['Airtel'], 'tel': ["08081508537"]},
-// {'name': ['Mtn'], 'tel': ["09032422392"]},
-// {'name': ['Bose'], 'tel': ["08097102634"]},
-// {'name': ['Michael'], 'tel': ["07018860969"]},
-// {'name': ['Geeky'], 'tel': ["08097453634"]}

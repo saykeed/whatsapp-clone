@@ -10,29 +10,26 @@
 
 <script>
 import { useRouter } from 'vue-router'
-import { computed } from 'vue'
 import { useStore } from 'vuex'
+import { ref, computed } from 'vue'
 
 export default {
   name: 'HomeView',
   props: ['contact'],
   components: { },
-  setup(props) {
+  setup(props, { emit }) {
     // variables
     const router = useRouter()
     const store = useStore()
+    
+
 
     // functions
     const addUser = () => {
-        router.push({
-            name: 'Chatpage',
-            params: {
-                id: JSON.stringify(props.contact)
-            }
-        })
+        emit('passContactObject', props.contact)
     }
 
-    // computed
+    // computed 
     const userData = computed(() => {
         return store.state.userData
     })
@@ -44,7 +41,6 @@ export default {
             return false
         }
     })
-
 
 
     return { addUser, checkMessage }
@@ -64,9 +60,6 @@ export default {
         text-decoration: none;
         -webkit-tap-highlight-color: $fadeBlack;
 
-        // &:active{
-        //     background: $fadeBlack;
-        // }
 
         img{
             width: 50px;
@@ -81,7 +74,7 @@ export default {
             text-align: left;
 
             h3{
-                color: Black;
+                color: rgba(0, 0, 0, 0.686);
                 display: flex;
                 align-items: center;
                 justify-content: space-between;

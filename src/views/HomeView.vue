@@ -1,16 +1,22 @@
 <template>
     <div class="home">
-        <SearchUser />
-        <div class="contacts" v-if="recentChats.length">
-          <Eachcontact 
-            v-for="contact in recentChats"
-            :key="contact.timestamp"
-            :contact="contact"
-          />
-        </div>
-        <div v-else>
-           <Skelenton v-for="(skelenton, index) in fallbackCount" :key="skelenton.index"/>
-        </div>
+      <div class="mobile">
+          <!-- <SearchUser /> -->
+          <div class="contacts" v-if="recentChats.length">
+            <Eachcontact 
+              v-for="(contact, index) in recentChats"
+              :key="contact.index"
+              :contact="contact"
+            />
+          </div>
+          <div v-else>
+            <Skelenton v-for="(skelenton, index) in fallbackCount" :key="skelenton.index"/>
+          </div>
+      </div>
+      
+      <div class="desktop">
+          <Desktophome :userData="userData" :recent="recentChats"/>
+      </div>
         
     </div>
 </template>
@@ -18,6 +24,7 @@
 <script>
 import Eachcontact from '@/components/Eachcontact.vue'
 import Skelenton from '@/components/Skelenton.vue'
+import Desktophome from '@/components/Desktophome.vue'
 import SearchUser from '@/components/SearchUser.vue'
 import {useStore} from 'vuex'
 import {computed, onBeforeMount, onMounted, ref, watch} from 'vue'
@@ -28,7 +35,7 @@ import { useRouter } from 'vue-router'
 
 export default {
   name: 'HomeView',
-  components: { Eachcontact, SearchUser, Skelenton },
+  components: { Eachcontact, SearchUser, Skelenton, Desktophome },
   setup() {
     // variables
     const store = useStore()
@@ -57,6 +64,7 @@ export default {
 
         if (docSnap.exists()) {
           store.commit('updateUserdata', docSnap.data())
+          
         } else {
           //alert('No details of this user in the database')
         }
@@ -85,7 +93,7 @@ export default {
     // mounted properties
     onBeforeMount( async () => {
       store.commit('updateWelcomeStatus', true)
-      //console.log('app unbeforemount')
+      console.log('app unbeforemount')
         onAuthStateChanged(auth, async (user) => {
           if (user) {
               let userTel = user.phoneNumber;
@@ -100,7 +108,7 @@ export default {
     
     //setSnapshotOnInbox(userData.value)
    // store.commit('updateLoaderStatus', true)
-    return { contacts, recentChats, fallbackCount }
+    return { contacts, recentChats, fallbackCount, userData }
   }
 }
 </script>
@@ -109,8 +117,27 @@ export default {
 @import "@/assets/scss/variable.scss";
 
   div.home{
-    background: black;
+    background: $lightBackground;
     min-height: calc(100vh - 100px);
+    
+    div.desktop{
+      display: none;
+    }
+  }
+
+  /*for the responsieve screen of lg*/
+  @media screen and (min-width:700px){
+    div.home{
+        // background: $desktopBackground;
+        min-height: 100vh;
+
+        div.mobile{
+          display: none;
+        }
+        div.desktop{
+          display: flex;
+        }
+    }
   }
     
 </style>

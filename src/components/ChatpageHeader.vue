@@ -1,9 +1,9 @@
 <template>
     <div class="chatpageheader">
         <router-link to="/"><i class="material-icons">arrow_back</i></router-link>
-        <img src="https://cdn.pixabay.com/photo/2013/07/13/12/07/avatar-159236__340.png" alt=""/>
+        <img :src="data.Photo" alt=""/>
         <div class="info">
-            <h3>{{ name }}</h3>
+            <h3>{{ data.Name }}</h3>
             <p>Status</p>
         </div>
         <div class="icons">
@@ -18,7 +18,7 @@
 
 export default{
     name: 'chatpageheader',
-    props: ['name'],
+    props: ['data'],
     setup() {
         
 
@@ -53,6 +53,7 @@ export default{
             height: 40px;
             border-radius: 40px;
             object-fit: cover;
+            object-position: top center;
             margin: 0 0.5rem 0 0.2rem;
         }
 

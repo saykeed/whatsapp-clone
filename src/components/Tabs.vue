@@ -19,6 +19,8 @@ export default{
 </script>
 
 <style lang="scss" scoped>
+@import "@/assets/scss/variable.scss";
+
     .tabs{
         display: flex;
         align-items: flex-end;
@@ -26,7 +28,7 @@ export default{
         height: 50px;
         position: sticky;
         top: 0;
-        background: rgb(67, 67, 67);
+        background: $tealGreen;
         color: rgba(255, 255, 255, 0.524);
         z-index: 999;
 
