@@ -18,7 +18,7 @@
                   </div>
               </div>
             </div>
-            <div class="recentChats" @click="desktopLogout">
+            <div class="recentChats" @click="closeLogoutMenu">
                 <Desktoprecent 
                   v-for="(contact, index) in recent"
                   :key="contact.index"
@@ -153,6 +153,10 @@ export default {
           logoutStatus.value = !logoutStatus.value
         }
 
+        const closeLogoutMenu = () => {
+          logoutStatus.value = false
+        }
+
         const logoutUser = () => {
             signOut(auth).then(() => {
                 logoutStatus.value = false
@@ -173,7 +177,8 @@ export default {
     
 
       return { loadChats, data, chats, toggleDesktopAllRegUsers, desktopAllUsersStatus, 
-            beforeEnter, enter, leave, desktopLogout, logoutStatus, logoutUser }  
+            beforeEnter, enter, leave, desktopLogout, logoutStatus, logoutUser, closeLogoutMenu }  
+    
     }
 }
 </script>
