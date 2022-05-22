@@ -3,7 +3,7 @@
       <ChatpageHeader :data="data"/>
       <Chatbar @sendMessage="sendMessage"/>
         <div class="chatArea">
-            <Chatarea :chats="chats" :senderData="senderData" :receiverTel="receiverTel"/>
+            <Chatarea :chats="chats" :senderData="senderData" :receiverTel="receiverTel.phoneNumber"/>
         </div>
         
     </div>
