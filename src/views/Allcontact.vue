@@ -35,7 +35,6 @@ export default {
     const loadAllRegUsers = async () => {
           const querySnapshot = await getDocs(collection(db, "regUsers"));
           querySnapshot.forEach((doc) => {
-            //console.log(doc.id, " => ", doc.data());
             contacts.value.push(doc.data())
           });
     }
@@ -55,7 +54,7 @@ export default {
 <style lang="scss">
 @import "@/assets/scss/variable.scss";
   div.allcontacts{
-    background: black;
+    background: $lightBackground;
     min-height: calc(100vh - 70px);
     margin-top: 70px;
     

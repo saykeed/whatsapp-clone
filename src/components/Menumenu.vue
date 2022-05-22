@@ -27,18 +27,18 @@ export default {
                 closeMenuOptions()
                 router.push('/login')
             }).catch((error) => {
-                // An error happened.
-                alert('logout Error')
+                console.log(error)
             });
         }
 
-      return { closeMenuOptions, logout }  
+      return { closeMenuOptions, logout }
     }
 }
 </script>
 
 <style lang="scss" scoped>
 @import "@/assets/scss/variable.scss";
+
     div.menumenu{
         position: fixed;
         width: 100vw;

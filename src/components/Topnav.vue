@@ -3,7 +3,7 @@
         <div class="firstrow">
             <h2>Whatsapp</h2>
             <div class="icons">
-                <i class="material-icons">search</i>
+                <i class="material-icons" @click="openSearch">search</i>
                 <i class="material-icons" @click="openMenu">menu</i>
             </div>
         </div> 
@@ -21,14 +21,20 @@ export default{
             emit('showMenuOptions')
         }
 
-      return { openMenu }  
+        const openSearch = () => {
+            emit('showSearchUser')
+        }
+
+      return { openMenu, openSearch }  
     },
 }
 </script>
 
 <style lang="scss" scoped>
+@import "@/assets/scss/variable.scss";
+
     .topnav{
-        background: rgb(67, 67, 67);
+        background: $tealGreen;
         color: rgba(255, 255, 255, 0.524);
         padding: 0 1rem;
         z-index: 999;
@@ -44,6 +50,10 @@ export default{
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
+
+                i{
+                    cursor: pointer;
+                }
             }
         }
 
